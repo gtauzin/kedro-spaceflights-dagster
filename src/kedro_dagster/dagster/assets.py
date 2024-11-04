@@ -1,3 +1,5 @@
+"""Define Dagster assets from Kedro nodes."""
+
 from collections.abc import Callable
 from pathlib import Path
 
@@ -24,7 +26,7 @@ def kedro_init(
     project_path: Path,
     env: str,
 ):
-    """Initializes a Kedro session and returns the DataCatalog and KedroSession.
+    """Initialize a Kedro session and returns the DataCatalog and KedroSession.
 
     Args:
         pipeline_name (str): The name of the pipeline to initialize.
@@ -67,7 +69,7 @@ def define_node_multi_asset(
     session_id: str,
     memory_asset_names: list,
 ) -> Callable:
-    """Wraps a kedro Node inside a Dagster multi asset.
+    """Wrap a kedro Node inside a Dagster multi asset.
 
     Args:
         node: Kedro node for which a Prefect task is being created.
@@ -106,7 +108,7 @@ def define_node_multi_asset(
 
     class NodeParametersConfig(NodeParameters, Config, extra="allow", frozen=False):
         pass
-    
+
     outs = {asset_name: AssetOut() for asset_name in output_asset_names}
     if not len(node.outputs):
         outs = {node.name: AssetOut()}
@@ -139,7 +141,7 @@ def define_node_multi_asset(
 
 
 def get_node_pipeline_name(pipelines, node):
-    """Returns the name of the pipeline that a node belongs to.
+    """Return the name of the pipeline that a node belongs to.
 
     Args:
         pipelines: Dictionary of Kedro pipelines.
@@ -153,10 +155,8 @@ def get_node_pipeline_name(pipelines, node):
                 return pipeline_name
 
 
-def load_kedro_assets_from_pipeline(
-    env: str | None = None
-):
-    """Loads Kedro assets from a pipeline into Dagster.
+def load_kedro_assets_from_pipeline(env: str | None = None):
+    """Load Kedro assets from a pipeline into Dagster.
 
     Args
         env: Kedro environment to load the catalog and parameters from.
@@ -183,7 +183,7 @@ def load_kedro_assets_from_pipeline(
             continue
         asset = AssetSpec(external_asset, group_name="external")
         assets.append(asset)
-    
+
     for node in pipeline.nodes:
         node_pipeline_name = get_node_pipeline_name(pipelines, node)
 

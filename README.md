@@ -9,7 +9,7 @@ This repository aims at exploring how [Dagster](https://dagster.io/) can be used
 To start the Dagster UI web server:
 
 ```bash
-dagster dev
+uv run dagster dev
 ```
 
 Open http://localhost:3000 with your browser to see the project.

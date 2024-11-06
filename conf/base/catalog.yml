@@ -42,6 +42,8 @@
 companies:
   type: pandas.CSVDataset
   filepath: data/01_raw/companies.csv
+  metadata:
+    description: "CSV file of companies' data"
 
 reviews:
   type: pandas.CSVDataset
@@ -56,6 +58,8 @@ shuttles:
 preprocessed_companies:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/preprocessed_companies.pq
+  metadata:
+    description: "PQ file of preprocessed companies' data"
 
 preprocessed_shuttles:
   type: pandas.ParquetDataset

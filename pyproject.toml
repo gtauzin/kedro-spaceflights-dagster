@@ -3,14 +3,15 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [project]
-name = "kedro-dagster"
+name = "kedro-spaceflights-dagster"
 readme = "README.md"
 requires-python = ">=3.11, <3.12"
 description = ""
 dependencies = [
     "dagster>=1.8.13",
     "dagster-cloud",
-    "dagster-webserver", 
+    "dagster-webserver",
+    "kedro-dagster", 
     "kedro>=0.19.8",
     "kedro-datasets[pandas-csvdataset, pandas-exceldataset, pandas-parquetdataset]>=3.0",
     "kedro-telemetry>=0.3.1",
@@ -37,16 +38,22 @@ doc = [
 ]
 
 [tool.dagster]
-module_name = "src.kedro_dagster.dagster.definitions"
-code_location_name = "kedro_dagster"
+module_name = "src.kedro_spaceflights_dagster.definitions"
+code_location_name = "kedro_spaceflights_dagster"
 
 [tool.kedro]
-project_name = "kedro-dagster"
-package_name = "kedro_dagster"
+project_name = "kedro-spaceflights-dagster"
+package_name = "kedro_spaceflights_dagster"
 kedro_init_version = "0.19.8"
 
 [tool.pdm.version]
 source = "scm"
+
+[tool.uv.sources]
+kedro-dagster = { workspace = true }
+
+[tool.uv.workspace]
+members = ["packages/*"]
 
 [tool.ruff]
 show-fixes = true
@@ -91,7 +98,7 @@ no_implicit_reexport = true
 
 # More strict checks for library code
 [[tool.mypy.overrides]]
-module = "kedro_dagster"
+module = "kedro_spaceflights_dagster"
 disallow_untyped_defs = true
 
 # Ignore certain missing imports
